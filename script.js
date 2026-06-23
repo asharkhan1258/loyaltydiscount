@@ -1,9 +1,8 @@
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const lddPurchasePhone = "tel:+18886606097";
 
-  const addButtons = document.querySelectorAll(".ldd-fav-cart-btn");
+  const serviceCards = document.querySelectorAll(".ldd-service-card");
   const cartItemsBox = document.getElementById("lddCartItems");
   const cartCount = document.getElementById("lddCartCount");
   const cartTotal = document.getElementById("lddCartTotal");
@@ -16,7 +15,37 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("lddCart", JSON.stringify(cart));
   }
 
+  function updateCardButtons() {
+    serviceCards.forEach(function (card) {
+      const title = card.dataset.title;
+      const heartButton = card.querySelector(".ldd-fav-cart-btn");
+
+      const exists = cart.some(function (item) {
+        return item.title === title;
+      });
+
+      if (exists) {
+        card.classList.add("ldd-card-added");
+
+        if (heartButton) {
+          heartButton.classList.add("ldd-added");
+        }
+      } else {
+        card.classList.remove("ldd-card-added");
+
+        if (heartButton) {
+          heartButton.classList.remove("ldd-added");
+        }
+      }
+    });
+  }
+
   function renderCart() {
+    if (!cartItemsBox || !cartCount || !cartTotal || !cartEmpty) {
+      updateCardButtons();
+      return;
+    }
+
     cartItemsBox.innerHTML = "";
 
     if (cart.length === 0) {
@@ -57,30 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
     cartCount.textContent = cart.length;
     cartTotal.textContent = "$" + total.toFixed(2);
 
-    updateHeartButtons();
+    updateCardButtons();
   }
 
-  function updateHeartButtons() {
-    addButtons.forEach(function (button) {
-      const card = button.closest(".ldd-service-card");
-      const title = card.dataset.title;
-
-      const exists = cart.some(function (item) {
-        return item.title === title;
-      });
-
-      if (exists) {
-        button.classList.add("ldd-added");
-      } else {
-        button.classList.remove("ldd-added");
-      }
-    });
-  }
-
-  addButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      const card = button.closest(".ldd-service-card");
-
+  serviceCards.forEach(function (card) {
+    card.addEventListener("click", function () {
       const item = {
         title: card.dataset.title,
         price: card.dataset.price,
@@ -93,29 +103,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (!alreadyAdded) {
         cart.push(item);
+        saveCart();
+        renderCart();
       }
-
-      saveCart();
-      renderCart();
     });
   });
 
-  cartItemsBox.addEventListener("click", function (e) {
-    const removeBtn = e.target.closest(".ldd-remove-cart-btn");
+  if (cartItemsBox) {
+    cartItemsBox.addEventListener("click", function (e) {
+      const removeBtn = e.target.closest(".ldd-remove-cart-btn");
 
-    if (removeBtn) {
-      const index = removeBtn.dataset.index;
-      cart.splice(index, 1);
+      if (removeBtn) {
+        const index = removeBtn.dataset.index;
+        cart.splice(index, 1);
+        saveCart();
+        renderCart();
+      }
+    });
+  }
+
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener("click", function () {
+      cart = [];
       saveCart();
       renderCart();
-    }
-  });
-
-  clearCartBtn.addEventListener("click", function () {
-    cart = [];
-    saveCart();
-    renderCart();
-  });
+    });
+  }
 
   renderCart();
 });
