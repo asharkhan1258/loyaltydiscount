@@ -9,10 +9,47 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     
 
+
+<!-- Cart Offcanvas -->
+<div class="offcanvas offcanvas-end ldd-cart-offcanvas" tabindex="-1" id="lddCartOffcanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-bold">
+      <i class="fa-solid fa-cart-shopping me-2"></i>
+      Your Cart
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <div id="lddCartItems"></div>
+
+    <div class="ldd-cart-empty text-center py-5" id="lddCartEmpty">
+      <i class="fa-regular fa-heart fs-1 mb-3"></i>
+      <p class="mb-0">Your cart is empty.</p>
+    </div>
+
+    <div class="ldd-cart-total-box mt-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <strong>Total:</strong>
+        <strong id="lddCartTotal">$0.00</strong>
+      </div>
+
+      <a href="tel:+18886606097" class="btn ldd-purchase-all-btn w-100 mt-3">
+        <i class="fa-solid fa-phone me-2"></i>
+        Purchase Now
+      </a>
+
+      <button class="btn ldd-clear-cart-btn w-100 mt-2" type="button" id="lddClearCart">
+        Clear Cart
+      </button>
+    </div>
+  </div>
+</div>
 
 <header class="ldd-header  bg-white">
 
@@ -110,8 +147,15 @@
             <a class="nav-link" href="terms.html">Terms &amp; Condition</a>
           </li>
 
+       
         </ul>
       </div>
+
+      <button class="btn ldd-cart-main-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#lddCartOffcanvas">
+        <i class="fa-solid fa-cart-shopping me-2"></i>
+        Cart
+        <span class="badge text-bg-light ms-2" id="lddCartCount">0</span>
+      </button>
 
     </div>
   </nav>
@@ -184,20 +228,25 @@
 
 
 <section class="ldd-services-section py-5">
-    <div class="container">
-        
-        <h2 class="fw-bold text-center">Our Services</h2>
-        <div class="row ">
-            
-            <!-- Card 1 -->
-            <div class="col-12 col-md-6 col-lg-4 mt-4">
-                <div class="ldd-service-card h-100">
-                    <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/11.jpg" 
-              alt="Graphic Designing"
-              class="img-fluid w-100"
-            >
+  <div class="container">
+
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+      <h2 class="fw-bold mb-0">Our Services</h2>
+
+      
+    </div>
+
+    <div class="row">
+
+      <!-- Card 1 -->
+      <div class="col-12 col-md-6 col-lg-4 mt-4">
+        <div class="ldd-service-card h-100" data-title="Graphic Designing" data-price="399.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/11.jpg">
+          <div class="ldd-service-img">
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/11.jpg" alt="Graphic Designing" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -209,22 +258,22 @@
               clearly and leave a strong impression.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               399.99 $
-            </a>
+            </button>
           </div>
         </div>
       </div>
 
       <!-- Card 2 -->
       <div class="col-12 col-md-6 col-lg-4 mt-4">
-        <div class="ldd-service-card h-100">
+        <div class="ldd-service-card h-100" data-title="Application Integration" data-price="499.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/app.jpg">
           <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/app.jpg" 
-              alt="Application Integration"
-              class="img-fluid w-100"
-            >
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/app.jpg" alt="Application Integration" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -236,22 +285,22 @@
               your business tools.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               499.99 $
-            </a>
+            </button>
           </div>
         </div>
       </div>
 
       <!-- Card 3 -->
       <div class="col-12 col-md-6 col-lg-4 mt-4">
-        <div class="ldd-service-card h-100">
+        <div class="ldd-service-card h-100" data-title="App Development" data-price="699.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/apps-development.jpg">
           <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/apps-development.jpg" 
-              alt="App Development"
-              class="img-fluid w-100"
-            >
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/apps-development.jpg" alt="App Development" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -263,23 +312,22 @@
               a smooth user experience.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               699.99 $
-            </a>
+            </button>
           </div>
         </div>
       </div>
 
-         <!-- Card 1 -->
+      <!-- Card 4 -->
       <div class="col-12 col-md-6 col-lg-4 mt-4">
-        <div class="ldd-service-card h-100">
-
+        <div class="ldd-service-card h-100" data-title="Web Design & Development" data-price="1499.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/web-development.jpg">
           <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/web-development.jpg"
-              alt="Web Design & Development"
-              class="img-fluid w-100"
-            >
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/web-development.jpg" alt="Web Design & Development" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -291,24 +339,22 @@
               Our focus is on practical solutions that drive traffic, leads, and real results.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               1499.99 $
-            </a>
+            </button>
           </div>
-
         </div>
       </div>
 
-       <!-- Card 1 -->
+      <!-- Card 5 -->
       <div class="col-12 col-md-6 col-lg-4 mt-4">
-        <div class="ldd-service-card h-100">
-
+        <div class="ldd-service-card h-100" data-title="Offshore Development" data-price="299.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/14.jpg">
           <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/14.jpg"
-              alt="Offshore Development"
-              class="img-fluid w-100"
-            >
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/14.jpg" alt="Offshore Development" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -320,24 +366,22 @@
               and on-time project execution.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               299.99 $
-            </a>
+            </button>
           </div>
-
         </div>
       </div>
 
-      <!-- Card 2 -->
+      <!-- Card 6 -->
       <div class="col-12 col-md-6 col-lg-4 mt-4">
-        <div class="ldd-service-card h-100">
-
+        <div class="ldd-service-card h-100" data-title="Back Office Support" data-price="799.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/16.jpg">
           <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/16.jpg"
-              alt="Back Office Support"
-              class="img-fluid w-100"
-            >
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/16.jpg" alt="Back Office Support" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -349,24 +393,22 @@
               so you can focus on growing your business.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               799.99 $
-            </a>
+            </button>
           </div>
-
         </div>
       </div>
 
-      <!-- Card 3 -->
+      <!-- Card 7 -->
       <div class="col-12 col-md-6 col-lg-4 mt-4">
-        <div class="ldd-service-card h-100">
-
+        <div class="ldd-service-card h-100" data-title="CRM Software Development" data-price="199.99" data-img="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/15.jpg">
           <div class="ldd-service-img">
-            <img 
-              src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/15.jpg"
-              alt="CRM Software Development"
-              class="img-fluid w-100"
-            >
+            <img src="https://loyaltydiscountdpt.click/wp-content/uploads/2026/01/15.jpg" alt="CRM Software Development" class="img-fluid w-100">
+
+            <button class="ldd-fav-cart-btn" type="button" aria-label="Add to cart">
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
 
           <div class="ldd-service-body text-center">
@@ -378,18 +420,16 @@
               sales and support efficiency.
             </p>
 
-            <a  class="btn ldd-service-btn">
+            <button class="btn ldd-service-btn" type="button">
               199.99 $
-            </a>
+            </button>
           </div>
-
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </section>
-
 
 <section class="ldd-contact-section py-5">
   <div class="container">
